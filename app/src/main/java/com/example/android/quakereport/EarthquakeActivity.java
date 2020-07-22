@@ -32,14 +32,7 @@ public class EarthquakeActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_activity);
 
         // Create a fake list of earthquake locations.
-        ArrayList<Earthquake> earthquakes = new ArrayList<>();
-        earthquakes.add(new Earthquake("2", "San Francisco","20/2/2020"));
-        earthquakes.add(new Earthquake("2", "London","20/2/2020"));
-        earthquakes.add(new Earthquake("2", "Tokyo","20/2/2020"));
-        earthquakes.add(new Earthquake("2", "Mexico City","20/2/2020"));
-        earthquakes.add(new Earthquake("2", "Moscow","20/2/2020"));
-        earthquakes.add(new Earthquake("2", "Rio de Janeiro","20/2/2020"));
-        earthquakes.add(new Earthquake("2", "Paris","20/2/2020"));
+        ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
 
         // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
