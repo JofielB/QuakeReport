@@ -49,17 +49,22 @@ public class EarthQuakesListAdapter extends ArrayAdapter<Earthquake> {
         // Get the {@link Earthquake} object located at this position in the list
         Earthquake currentEarthquake = getItem(position);
 
-
+        //Magnitude text
         TextView magnitudeTextView = (TextView) listItemView.findViewById(R.id.txtMagnitude);
 
         magnitudeTextView.setText(currentEarthquake.getMagnitude());
 
+        //Location texts
+
+        TextView proximityTextView = (TextView) listItemView.findViewById(R.id.txtProximity);
+
+        proximityTextView.setText(currentEarthquake.getProximity());
 
         TextView cityTextView = (TextView) listItemView.findViewById(R.id.txtCity);
 
         cityTextView.setText(currentEarthquake.getCity());
 
-
+        //Date texts
         TextView dateTextView = (TextView) listItemView.findViewById(R.id.txtDate);
 
         dateTextView.setText(currentEarthquake.getDate());

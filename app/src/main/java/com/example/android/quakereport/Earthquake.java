@@ -5,8 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Earthquake {
+    //Magnitude
     private String mMagnitude;
+
+    //Location
+    private String mProximity = "Near the";
     private String mCity;
+
+    //Date
     private long mTimeDate;
     private Date mDate;
 
@@ -16,11 +22,15 @@ public class Earthquake {
         mTimeDate = timeDate;
         mDate = new Date(mTimeDate);
 
+        //Separate the location
+        separateLocationString();
     }
 
     public String getMagnitude() {
         return mMagnitude;
     }
+
+    public String getProximity() { return mProximity; }
 
     public String getCity() {
         return mCity;
@@ -38,5 +48,14 @@ public class Earthquake {
         return timeFormat.format(mDate);
     }
 
+    private void separateLocationString(){
+        String fullLocation = mCity;
+        if(fullLocation.contains(" of"))
+        {
+            int location = fullLocation.indexOf(" of ");
+            mProximity = fullLocation.substring(0,location+3);
+            mCity = fullLocation.substring(location+4);
+        }
+    }
 
 }
