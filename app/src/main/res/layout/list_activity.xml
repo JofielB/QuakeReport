@@ -14,7 +14,6 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:textSize="18sp"
             android:gravity="center_vertical"
             android:text="5.4"/>
 
@@ -23,7 +22,6 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="match_parent"
-            android:textSize="18sp"
             android:text="Chihuahua"/>
 
         <TextView
@@ -31,8 +29,14 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="match_parent"
-            android:textSize="18sp"
             android:text="12/3/2020"/>
+
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:text="10:30pm"/>
 
     </LinearLayout>
 
