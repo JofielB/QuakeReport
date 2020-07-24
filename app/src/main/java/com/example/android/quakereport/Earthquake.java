@@ -1,12 +1,13 @@
 package com.example.android.quakereport;
 
-import java.text.DateFormat;
+import android.support.v4.content.ContextCompat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Earthquake {
     //Magnitude
-    private String mMagnitude;
+    private double mMagnitude;
 
     //Location
     private String mProximity = "Near the";
@@ -16,7 +17,7 @@ public class Earthquake {
     private long mTimeDate;
     private Date mDate;
 
-    public Earthquake(String magnitude, String city, long timeDate){
+    public Earthquake(double magnitude, String city, long timeDate){
         mMagnitude = magnitude;
         mCity = city;
         mTimeDate = timeDate;
@@ -26,7 +27,13 @@ public class Earthquake {
         separateLocationString();
     }
 
-    public String getMagnitude() {
+    public String getMagnitudeString() {
+        DecimalFormat formatter = new DecimalFormat("0.0");
+        String output = formatter.format(mMagnitude);
+        return output;
+    }
+
+    public double getMagnitudeDouble(){
         return mMagnitude;
     }
 
@@ -57,5 +64,6 @@ public class Earthquake {
             mCity = fullLocation.substring(location+4);
         }
     }
+
 
 }

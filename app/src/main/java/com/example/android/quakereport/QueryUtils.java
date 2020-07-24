@@ -60,7 +60,8 @@ public class QueryUtils {
 
                 JSONObject properties = currentEarthquake.getJSONObject("properties");
 
-                String mag = properties.getString("mag");
+                double mag = properties.getDouble("mag");
+
                 String place = properties.getString("place");
 
                 long timeMilliSeconds = properties.getLong("time");
