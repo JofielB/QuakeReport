@@ -125,6 +125,9 @@ public class EarthQuakesListAdapter extends ArrayAdapter<Earthquake> {
                 magnitudeColorResourceId = R.color.magnitude10plus;
                 break;
         }
+
         return ContextCompat.getColor(getContext(), magnitudeColorResourceId);
+
     }
+
 }
