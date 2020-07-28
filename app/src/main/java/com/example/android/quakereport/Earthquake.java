@@ -17,10 +17,14 @@ public class Earthquake {
     private long mTimeDate;
     private Date mDate;
 
-    public Earthquake(double magnitude, String city, long timeDate){
+    //Url
+    private String mUrl;
+
+    public Earthquake(double magnitude, String city, long timeDate, String url){
         mMagnitude = magnitude;
         mCity = city;
         mTimeDate = timeDate;
+        mUrl = url;
         mDate = new Date(mTimeDate);
 
         //Separate the location
@@ -43,7 +47,9 @@ public class Earthquake {
         return mCity;
     }
 
-    public long getTimeDate() {return mTimeDate;}
+    public long getTimeDate() {return mTimeDate; }
+
+    public String getUrl() { return mUrl; }
 
     public String getDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
