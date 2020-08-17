@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -37,6 +38,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     private final String url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
 
     ListView earthquakeListView;
+    TextView txtEmptyView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +48,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
         // Find a reference to the {@link ListView} in the layout
         earthquakeListView = (ListView) findViewById(R.id.list);
+        txtEmptyView = (TextView) findViewById(R.id.empty_view);
+        earthquakeListView.setEmptyView(txtEmptyView);
 
         //Get the data using Loaders
         Bundle urls = new Bundle();
@@ -68,6 +73,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     @Override
     public void onLoadFinished(Loader<ArrayList<Earthquake>> loader, ArrayList<Earthquake> data) {
         setAdapter(data);
+        // Set empty state text to display "No earthquakes found."
+        txtEmptyView.setText(R.string.no_earthquakes);
     }
 
     @Override
