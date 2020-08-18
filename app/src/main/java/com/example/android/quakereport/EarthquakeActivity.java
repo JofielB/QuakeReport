@@ -18,6 +18,8 @@ package com.example.android.quakereport;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,9 +40,11 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     private final String url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
 
+    boolean isConnected = false;
+
     ListView earthquakeListView;
     TextView txtEmptyView;
-
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +55,15 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         earthquakeListView = (ListView) findViewById(R.id.list);
         txtEmptyView = (TextView) findViewById(R.id.empty_view);
         earthquakeListView.setEmptyView(txtEmptyView);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        //Verify if the user has a internet connection
+        ConnectivityManager cm =
+                (ConnectivityManager)this.getSystemService(this.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
 
         //Get the data using Loaders
         Bundle urls = new Bundle();
@@ -73,8 +87,16 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     @Override
     public void onLoadFinished(Loader<ArrayList<Earthquake>> loader, ArrayList<Earthquake> data) {
         setAdapter(data);
-        // Set empty state text to display "No earthquakes found."
-        txtEmptyView.setText(R.string.no_earthquakes);
+
+        //Hide the progress bar
+        progressBar.setVisibility(View.GONE);
+
+        //Decide what message show to the user depending of his internet connection
+        if(isConnected) {
+            txtEmptyView.setText(R.string.no_earthquakes);
+        }else{
+            txtEmptyView.setText(R.string.no_internet_connection);
+        }
     }
 
     @Override
