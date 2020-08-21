@@ -18,11 +18,13 @@ package com.example.android.quakereport;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,7 +42,11 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
 
-    private final String url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
+    /**Original URL
+     *
+     * private final String url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
+     * */
+    private final String url = "https://earthquake.usgs.gov/fdsnws/event/1/query";
 
     boolean isConnected = false;
 
@@ -83,7 +89,25 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
      * */
     @Override
     public Loader<ArrayList<Earthquake>> onCreateLoader(int id, Bundle args) {
-        return new EarthQuakeLoader(EarthquakeActivity.this, url);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String minMagnitude = sharedPrefs.getString(
+                getString(R.string.settings_min_magnitude_key),
+                getString(R.string.settings_min_magnitude_default));
+
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default)
+        );
+
+        Uri baseUri = Uri.parse(url);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("format", "geojson");
+        uriBuilder.appendQueryParameter("limit", "10");
+        uriBuilder.appendQueryParameter("minmag", minMagnitude);
+        uriBuilder.appendQueryParameter("orderby", orderBy);
+
+        return new EarthQuakeLoader(EarthquakeActivity.this, uriBuilder.toString());
     }
 
     @Override
