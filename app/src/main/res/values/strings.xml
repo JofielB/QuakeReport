@@ -40,4 +40,9 @@
     <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
     <string name="settings_order_by_most_recent_label">Most Recent</string>
     <string name="settings_order_by_most_recent_value" translatable="false">time</string>
+
+    <!-- Strings For Limits Of Earthquakes shown Preference [CHAR LIMIT=30] -->
+    <string name="settings_limit_label">Limit Earthquakes</string>
+    <string name="settings_limit_key" translatable="false">limit_earthquake</string>
+    <string name="settings_limit_default" translatable="false">10</string>
 </resources>
